@@ -9,7 +9,7 @@
       <div class="time">
         <p>Время</p>
         <p v-if="startGame === false">00:00</p>
-        <p v-else-if="startGame === true">{{ this.time }}</p>
+        <p v-else-if="startGame">{{ this.time }}</p>
       </div>
     </div>
     <div>
@@ -24,7 +24,7 @@
           {{ cell }}
         </div>
       </transition-group>
-      <div class="gameWon" v-if="gameIsWon === true">
+      <div class="gameWon" v-if="gameIsWon">
         Поздравляю, Вы выиграли!
       </div>
     </div>
@@ -58,10 +58,10 @@ export default {
   },
   methods: {
     makeRandomSort() {
-      return this.cells.sort(() => Math.random() - 0.5);
+      this.cells.sort(() => Math.random() - 0.5);
     },
     clickOnCell(index) {
-      if (this.startGame === true) {
+      if (this.startGame) {
         let valueCell = this.cells[index];
         if (this.cells[index - 1] == 0) {
           this.cells[index] = "";
@@ -85,11 +85,10 @@ export default {
 
     addedTime() {
       this.date = new Date().getTime();
-      return this.date;
     },
 
     emptyCellPosition() {
-      return this.cells.indexOf("");
+      this.cells.indexOf("");
     },
 
     loadGame() {
